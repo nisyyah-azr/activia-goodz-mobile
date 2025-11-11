@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:activia_goodz/menu.dart';
+import 'package:activia_goodz/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());

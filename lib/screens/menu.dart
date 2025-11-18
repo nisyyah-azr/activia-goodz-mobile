@@ -15,9 +15,9 @@ class MyHomePage extends StatelessWidget {
   final String kelas = "A"; //kelas
 
   final List<ItemHomepage> items = [
-    ItemHomepage("Lihat Daftar Produk", Icons.store, Colors.blue),
-    ItemHomepage("Tambah Produk", Icons.add_shopping_cart, Colors.green),
-    ItemHomepage("Logout", Icons.logout, Colors.red),
+    ItemHomepage("Lihat Daftar Produk", Icons.store, const Color.from(alpha: 1, red: 0.024, green: 0.137, blue: 0.247)),   
+    ItemHomepage("Tambah Produk", Icons.add_shopping_cart, const Color.fromARGB(255, 8, 47, 84)),
+    ItemHomepage("Logout", Icons.logout, const Color.fromARGB(255, 9, 53, 94)),
   ];
 
   @override
@@ -184,7 +184,10 @@ class ItemCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const ProductEntryPage(),
+                builder: (context) => const ProductEntryPage(
+                  category: '',
+                  categoryName: 'All Products',
+                ),
               ),
             );
           } else if (item.name == "Logout") {

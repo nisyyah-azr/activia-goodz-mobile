@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 // Import drawer widget
 import 'package:activia_goodz/widgets/left_drawer.dart';
 import 'package:activia_goodz/screens/productentry_form.dart';
-import 'package:activia_goodz/widgets/product_card.dart';
+import 'package:activia_goodz/screens/login.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:activia_goodz/screens/list_productentry.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -12,9 +15,9 @@ class MyHomePage extends StatelessWidget {
   final String kelas = "A"; //kelas
 
   final List<ItemHomepage> items = [
-    ItemHomepage("All Products", Icons.store, Colors.blue),
-    ItemHomepage("My Products", Icons.person_outline, Colors.green),
-    ItemHomepage("Tambah Produk", Icons.add_shopping_cart, Colors.red),
+    ItemHomepage("Lihat Daftar Produk", Icons.store, Colors.blue),
+    ItemHomepage("Tambah Produk", Icons.add_shopping_cart, Colors.green),
+    ItemHomepage("Logout", Icons.logout, Colors.red),
   ];
 
   @override
@@ -129,7 +132,7 @@ class InfoCard extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
-  final Color color; // agar tiap item punya warna sendiri 
+  final Color color; // agar tiap item punya warna sendiri
 
   ItemHomepage(this.name, this.icon, this.color);
 }
@@ -143,6 +146,7 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Material(
       // Menentukan warna latar belakang dari tema aplikasi.
       color: item.color,
@@ -151,7 +155,7 @@ class ItemCard extends StatelessWidget {
 
       child: InkWell(
         // Aksi ketika kartu ditekan.
-        onTap: () {
+        onTap: () async {
           // Menampilkan pesan SnackBar saat kartu ditekan.
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -160,14 +164,52 @@ class ItemCard extends StatelessWidget {
                 content: Text("Kamu telah menekan tombol ${item.name}!"),
               ),
             );
-            // Navigate ke route yang sesuai (tergantung jenis tombol)
+          // Navigate ke route yang sesuai (tergantung jenis tombol)
           if (item.name == "Tambah Produk") {
-            // TODO: Gunakan Navigator.push untuk melakukan navigasi ke MaterialPageRoute yang mencakup ProductEntryFormPage.
-            // routing ke NewsFormPage
+            // routing ke ProductEntryFormPage
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ProductEntryFormPage()),
+              MaterialPageRoute(
+                builder: (context) => const ProductEntryFormPage(),
+              ),
             );
+          } else if (item.name == "Lihat Daftar Produk") {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text("Kamu telah menekan tombol ${item.name}!"),
+                ),
+              );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProductEntryPage(),
+              ),
+            );
+          } else if (item.name == "Logout") {
+            final response = await request.logout(
+              "http://localhost:8000/auth/logout/",
+            );
+            String message = response["message"];
+            if (context.mounted) {
+              if (response['status']) {
+                String uname = response["username"];
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("$message Sampai jumpa lagi, $uname."),
+                  ),
+                );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              } else {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(message)));
+              }
+            }
           }
         },
         // Container untuk menyimpan Icon dan Text

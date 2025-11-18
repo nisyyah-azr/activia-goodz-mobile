@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:activia_goodz/screens/menu.dart';
 import 'package:activia_goodz/screens/productentry_form.dart';
+import 'package:activia_goodz/screens/list_productentry.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -30,7 +31,8 @@ class LeftDrawer extends StatelessWidget {
                   "The easiest way to get the best Goodz for you!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
@@ -43,24 +45,38 @@ class LeftDrawer extends StatelessWidget {
             // Bagian redirection ke MyHomePage
             onTap: () {
               Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyHomePage(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyHomePage(),
+                ),
+              );
             },
           ),
-          //  ListTile baru untuk ke halaman melihat produk
+          //  ListTile baru untuk ke halaman form tambah produk
           ListTile(
             leading: const Icon(Icons.add_shopping_cart),
             title: const Text('Tambah Produk'),
             // Bagian redirection ke ProductEntryFormPage
             onTap: () {
               // routing ke ProductEntryFormPage
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProductEntryFormPage(),
-                  ));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProductEntryFormPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.list),
+            title: const Text('Daftar Produk'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProductEntryPage(),
+                ),
+              );
             },
           ),
         ],

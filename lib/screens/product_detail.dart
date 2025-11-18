@@ -28,7 +28,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     try {
       // Fetch product detail yang akan auto-increment views
       final response = await request.get(
-        'http://localhost:8000/json/${widget.product.id}/',
+        'https://nisyyah-azzahra-activiagoodz.pbp.cs.ui.ac.id/json/${widget.product.id}/',
       );
       
       setState(() {
@@ -85,7 +85,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 children: [
                   // Thumbnail image
                   Image.network(
-                    'http://localhost:8000/proxy-image/?url=${Uri.encodeComponent(currentProduct.thumbnail)}',
+                    'https://nisyyah-azzahra-activiagoodz.pbp.cs.ui.ac.id/proxy-image/?url=${Uri.encodeComponent(currentProduct.thumbnail)}',
                     width: double.infinity,
                     height: 300,
                     fit: BoxFit.cover,

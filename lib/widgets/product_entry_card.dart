@@ -49,7 +49,7 @@ class ProductEntryCard extends StatelessWidget {
                       top: Radius.circular(8),
                     ),
                     child: Image.network(
-                      'http://localhost:8000/proxy-image/?url=${Uri.encodeComponent(product.thumbnail)}',
+                      'https://nisyyah-azzahra-activiagoodz.pbp.cs.ui.ac.id/proxy-image/?url=${Uri.encodeComponent(product.thumbnail)}',
                       height: 200,
                       width: double.infinity,
                       fit: BoxFit.cover,

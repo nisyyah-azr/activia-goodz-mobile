@@ -192,7 +192,7 @@ class ItemCard extends StatelessWidget {
             );
           } else if (item.name == "Logout") {
             final response = await request.logout(
-              "http://localhost:8000/auth/logout/",
+              "https://nisyyah-azzahra-activiagoodz.pbp.cs.ui.ac.id/auth/logout/",
             );
             String message = response["message"];
             if (context.mounted) {

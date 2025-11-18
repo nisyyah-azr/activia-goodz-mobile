@@ -25,7 +25,7 @@ class _ProductEntryPageState extends State<ProductEntryPage> {
 
   Future<List<ProductEntry>> fetchProduct(CookieRequest request) async {
     // Build URL dengan filter
-    String url = 'http://localhost:8000/json/?filter=$currentFilter';
+    String url = 'https://nisyyah-azzahra-activiagoodz.pbp.cs.ui.ac.id/json/?filter=$currentFilter';
     
     // Tambahkan category filter jika ada
     if (widget.category.isNotEmpty) {
